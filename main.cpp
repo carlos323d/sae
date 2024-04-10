@@ -1,28 +1,31 @@
-//creacion de un puntero a clase y funcion
+//Puntero a eventos por herencia;
 
 #include <iostream>
 using namespace std;
-class class1{
+class Eventos {
 public:
-    void saludar(){
-        cout<<"este es un puntero a clase";
+   virtual void Ejecutar () = 0;
+};
+class Evento1 : public Eventos {
+public:
+    void Ejecutar () override {
+       cout<<"Evento1 Ejecutado";
     }
 };
-
-void funcion(){
-    cout<<"esto es un puntero a funion";
+class Evento2: public Eventos{
+public:
+    void Ejecutar()override{
+        cout<<"Evento2 Ejecutado";
+    }
+};
+void EnviarEventos(Eventos *vento){
+    vento->Ejecutar();
 }
-
-
 int main()
-{
-    class1 objeto;
-    class1 *punteroClase = &objeto;
-
-    punteroClase->saludar();
-    void (*punteroAfuncion)() = &funcion;
-    punteroAfuncion();
-
-
+{   Evento1 p1;
+    Evento2 p2;
+    void (*PunteroAEventos)(Eventos*)=&EnviarEventos;
+    PunteroAEventos(&p1);
+    PunteroAEventos(&p2);
     return 0;
 }
